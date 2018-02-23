@@ -55,9 +55,9 @@ namespace HairSalon.Tests
         {
           Client testClient = new Client("Bob", "1991-06-05");
           testClient.Save();
-          Client fakeClient = new Client("Bib", "1991-06-05");
-          fakeClient.Save();
+
           List<Client> input = Client.GetAll();
+
           List<Client> testList = new List<Client>{testClient};
 
           CollectionAssert.AreEqual(testList, input);
