@@ -10,16 +10,29 @@ namespace HairSalon.Tests
     public class StylistsControllerTest
     {
         [TestMethod]
-        public void Index_ReturnIfView_True()
+        public void Index_ReturnView_True()
         {
 
             StylistsController controller = new StylistsController();
 
 
             IActionResult indexView = controller.Index();
-            ViewResult result = indexView as ViewResult;
+            ViewResult test = indexView as ViewResult;
 
 
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsInstanceOfType(test, typeof(ViewResult));
         }
+
+      [TestMethod]
+      public void CreateStylistForm_ReturnIfView_True()
+      {
+       StylistsController controller = new StylistsController();
+
+       IActionResult stylistsCreate = controller.CreateStylistForm();
+       ViewResult test = stylistsCreate as ViewResult;
+
+       Assert.IsInstanceOfType(test, typeof(ViewResult));
       }
+
+    }
+}
