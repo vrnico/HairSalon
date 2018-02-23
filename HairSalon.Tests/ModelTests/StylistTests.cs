@@ -56,7 +56,7 @@ namespace HairSalon.Tests
          newStylist.Save();
          Client newClient = new Client("Bob", "1992-02-25");
          newClient.SetStylistId(newStylist.GetId());
-         // newClient.Save();
+         newClient.Save();
          Client testClient = new Client("Louise", "1992-02-25");;
          testClient.SetStylistId(newStylist.GetId());
          testClient.Save();
