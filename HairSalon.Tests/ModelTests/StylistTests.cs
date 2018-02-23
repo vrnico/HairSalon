@@ -10,7 +10,7 @@ namespace HairSalon.Tests
   {
     public void Dispose()
     {
-      Client.DeleteAll();
+      Stylist.DeleteAll();
       Stylist.DeleteAll();
     }
 
@@ -47,6 +47,25 @@ namespace HairSalon.Tests
         DateTime inputDate = testStylist.GetFormattedDate();
 
         Assert.AreEqual(inputDate, testDate);
+      }
+
+    [TestMethod]
+      public void AssignStylist_SavesStylisttoStylist_ReturnsStylistInfo()
+      {
+        Stylist newStylist = new Stylist("Lynda", "1992-02-25");
+         newStylist.Save();
+         Client newClient = new Client("Bob", "1992-02-25");
+         newClient.SetStylistId(newStylist.GetId());
+         // newClient.Save();
+         Client testClient = new Client("Louise", "1992-02-25");;
+         testClient.SetStylistId(newStylist.GetId());
+         testClient.Save();
+         List<Client> testList = new List<Client>{newClient, testClient};
+
+         List<Client> result = newStylist.GetClients();
+
+         CollectionAssert.AreEqual(result, testList);
+
       }
   }
 }

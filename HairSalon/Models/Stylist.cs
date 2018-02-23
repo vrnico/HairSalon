@@ -49,7 +49,7 @@ namespace HairSalon.Models
       return _id;
     }
 
-    public static List<Stylist> GetAll()
+    public static List<Stylist> GetAllStylists()
     {
       List<Stylist> allStylists = new List<Stylist> {};
       MySqlConnection conn = DB.Connection();
@@ -72,6 +72,87 @@ namespace HairSalon.Models
         conn.Dispose();
       }
       return allStylists;
+    }
+
+    public override bool Equals(System.Object otherStylist)
+    {
+      if (!(otherStylist is Stylist))
+      {
+        return false;
+      }
+      else
+      {
+        Stylist newStylist = (Stylist) otherStylist;
+        return this.GetId().Equals(newStylist.GetId());
+      }
+    }
+
+    public void Save()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"INSERT INTO `stylists` (`name`, `raw_date`, `formatted_date`) VALUES (@Name, @RawDate, @FormattedDate);";
+
+            MySqlParameter name = new MySqlParameter();
+            name.ParameterName = "@name";
+            name.Value = this._name;
+
+            MySqlParameter rawDate = new MySqlParameter();
+            rawDate.ParameterName = "@RawDate";
+            rawDate.Value = this._rawDate;
+
+            MySqlParameter formattedDate = new MySqlParameter();
+            formattedDate.ParameterName = "@FormattedDate";
+            formattedDate.Value = this._formattedDate;
+
+
+            cmd.Parameters.Add(name);
+            cmd.Parameters.Add(rawDate);
+            cmd.Parameters.Add(formattedDate);
+
+
+            cmd.ExecuteNonQuery();
+            _id = (int) cmd.LastInsertedId;
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
+        public List<Client> GetClients()
+    {
+      List<Client> allStylistClients = new List<Client> {};
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM `clients` WHERE `stylist_id` = @stylist_id;";
+
+      MySqlParameter stylistId = new MySqlParameter();
+      stylistId.ParameterName = "@stylist_id";
+      stylistId.Value = this._id;
+      cmd.Parameters.Add(stylistId);
+
+      var rdr = cmd.ExecuteReader() as MySqlDataReader;
+      while(rdr.Read())
+      {
+        int clientId = rdr.GetInt32(0);
+        string clientName = rdr.GetString(1);
+        string clientRawDate = rdr.GetString(2);
+        int clientStylistId = rdr.GetInt32(4);
+        Client newClient = new Client(clientName, clientRawDate, clientId, clientStylistId);
+        newClient.SetAppt();
+        allStylistClients.Add(newClient);
+      }
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+
+      return allStylistClients;
     }
 
     public DateTime GetFormattedDate()
