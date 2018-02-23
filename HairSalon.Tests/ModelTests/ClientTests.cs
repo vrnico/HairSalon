@@ -16,9 +16,12 @@ namespace HairSalon.Tests
 
     public ClientTests()
     {
-      DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=nico_daunt_test;";
+      DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=nico_daunt_test";
     }
-
+    [TestMethod]
+        public void GetClient_TakesInput_ReturnsInput()
+        {
+        }
 
   }
 }
