@@ -21,6 +21,5 @@ namespace HairSalon.Tests
 
             Assert.IsInstanceOfType(result, typeof(ViewResult));
         }
-
     }
 }

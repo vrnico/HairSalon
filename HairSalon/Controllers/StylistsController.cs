@@ -4,14 +4,14 @@ using HairSalon.Models;
 
 namespace HairSalon.Controllers
 {
-  public class StylistController : Controller
+  public class StylistsController : Controller
   {
-    // [Route("/")]
-    // public ActionResult Index()
-    // {
-    //   List<Stylist> allStylists = Stylist.GetAll();
-    //   return View("Index", allStylists);
-    // }
+    [Route("/")]
+    public ActionResult Index()
+    {
+      List<Stylist> allStylists = Stylist.GetAllStylists();
+      return View("Index" , allStylists);
+    }
 
   }
 }
