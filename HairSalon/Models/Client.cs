@@ -30,6 +30,6 @@ namespace HairSalon.Models
       }
     }
 
-    public string GetName() {return "poot";}
+    public string GetName() {return _name;}
   }
 }
