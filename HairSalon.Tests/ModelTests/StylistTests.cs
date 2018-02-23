@@ -36,5 +36,17 @@ namespace HairSalon.Tests
       Assert.AreEqual(testDate, inputDate);
       Assert.AreEqual(testId, nullId);
     }
+
+    [TestMethod]
+      public void GetDate_AssignDate_SetDate()
+      {
+        Stylist testStylist = new Stylist("Lynda", "1992-02-25");
+        DateTime testDate = new DateTime(1991, 02, 25);
+
+        testStylist.SetDate();
+        DateTime inputDate = testStylist.GetFormattedDate();
+
+        Assert.AreEqual(inputDate, testDate);
+      }
   }
 }
