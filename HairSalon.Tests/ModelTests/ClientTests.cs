@@ -41,7 +41,7 @@ namespace HairSalon.Tests
     [TestMethod]
       public void GetAppt_AssignAppt_SetAppt()
       {
-        Client testClient = new Client("Bob", "1991-05-05");
+        Client testClient = new Client("Bob", "1991-06-05");
         DateTime testAppt = new DateTime(1991, 06, 05);
 
         testClient.SetAppt();
