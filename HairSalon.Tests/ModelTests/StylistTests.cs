@@ -41,7 +41,7 @@ namespace HairSalon.Tests
       public void GetDate_AssignDate_SetDate()
       {
         Stylist testStylist = new Stylist("Lynda", "1992-02-25");
-        DateTime testDate = new DateTime(1991, 02, 25);
+        DateTime testDate = new DateTime(1992, 02, 25);
 
         testStylist.SetDate();
         DateTime inputDate = testStylist.GetFormattedDate();
