@@ -22,12 +22,19 @@ namespace HairSalon.Tests
     [TestMethod]
     public void GetSytlist_TakesInput_ReturnsInput()
     {
-      Stylist newStylist = new Stylist("Lynda");
+      Stylist newStylist = new Stylist("Lynda", "1/1/0001 12:00:00 AM", 1);
       string testName = "Lynda";
+      string testDate = "1/1/0001 12:00:00 AM";
+      int testId = 1;
+
 
       string inputName = newStylist.GetName();
+      string inputDate = newStylist.GetRawDate();
+      int nullId = newStylist.GetId();
 
       Assert.AreEqual(testName, inputName);
+      Assert.AreEqual(testDate, inputDate);
+      Assert.AreEqual(testId, nullId);
     }
   }
 }
