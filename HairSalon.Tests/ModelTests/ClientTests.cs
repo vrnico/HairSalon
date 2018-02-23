@@ -21,6 +21,12 @@ namespace HairSalon.Tests
     [TestMethod]
         public void GetClient_TakesInput_ReturnsInput()
         {
+          Client newClient = new Client("Bob");
+          string testName = "Bob";
+
+          string inputName = newClient.GetName();
+
+          Assert.AreEqual(testName, inputName);
         }
 
   }

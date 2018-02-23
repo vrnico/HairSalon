@@ -6,6 +6,13 @@ namespace HairSalon.Models
 {
   public class Client
   {
+    private string _name;
+
+    public Client(string name)
+    {
+      _name = name;
+    }
+
     public static void DeleteAll()
     {
       MySqlConnection conn = DB.Connection();
@@ -22,5 +29,7 @@ namespace HairSalon.Models
           conn.Dispose();
       }
     }
+
+    public string GetName() {return "poot";}
   }
 }

@@ -19,5 +19,15 @@ namespace HairSalon.Tests
       DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=nico_daunt_test";
     }
 
+    [TestMethod]
+    public void GetSytlist_TakesInput_ReturnsInput()
+    {
+      Stylist newStylist = new Stylist("Lynda");
+      string testName = "Lynda";
+
+      string inputName = newStylist.GetName();
+
+      Assert.AreEqual(testName, inputName);
+    }
   }
 }
