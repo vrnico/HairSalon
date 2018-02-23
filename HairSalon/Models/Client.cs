@@ -85,6 +85,44 @@ namespace HairSalon.Models
       return allClients;
     }
 
+    public void Save()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"INSERT INTO `clients` (`name`, `raw_appt`, `formatted_appt`, `stylist_id`) VALUES (@Name, @RawAppt, @FormattedAppt, @StylistId);";
+
+            MySqlParameter name = new MySqlParameter();
+            name.ParameterName = "@name";
+            name.Value = this._name;
+
+            MySqlParameter rawAppt = new MySqlParameter();
+            rawAppt.ParameterName = "@RawAppt";
+            rawAppt.Value = this._rawAppt;
+
+            MySqlParameter formattedAppt = new MySqlParameter();
+            formattedAppt.ParameterName = "@FormattedAppt";
+            formattedAppt.Value = this._formattedAppt;
+
+            MySqlParameter stylistId = new MySqlParameter();
+            stylistId.ParameterName = "@StylistId";
+            stylistId.Value = this._stylistId;
+
+            cmd.Parameters.Add(name);
+            cmd.Parameters.Add(rawAppt);
+            cmd.Parameters.Add(formattedAppt);
+            cmd.Parameters.Add(stylistId);
+
+            cmd.ExecuteNonQuery();
+            _id = (int) cmd.LastInsertedId;
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
     public DateTime GetFormattedAppt()
     {
       return _formattedAppt;
