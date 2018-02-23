@@ -38,17 +38,22 @@ namespace HairSalon.Tests
           Assert.AreEqual(testStylistId, nullStylistId);
         }
 
+    [TestMethod]
+      public void GetAppt_AssignAppt_SetAppt()
+      {
+        Client testClient = new Client("Bob", "1991-05-05");
+        DateTime testAppt = new DateTime(1991, 06, 05);
+
+        testClient.SetAppt();
+        DateTime inputAppt = testClient.GetFormattedAppt();
+
+        Assert.AreEqual(inputAppt, testAppt);
+      }
+
       [TestMethod]
         public void AssignClient_SavesClienttoStylist_ReturnsClientInfo()
         {
-          Client newClient = new Client("Bob", "1/1/0001 12:00:00 AM", 1, 1);
 
-          newClient.Save();
-          Client clientList = Client.GetAll()[0];
-          int inputId = clientList.GetId();
-          int testId = newClient.GetId();
-
-          Assert.AreEqual(inputId, testId);
         }
 
   }

@@ -123,6 +123,22 @@ namespace HairSalon.Models
             }
         }
 
+    public override bool Equals(System.Object otherClient)
+    {
+      if (!(otherClient is Client))
+      {
+        return false;
+      }
+      else
+      {
+        Client newClient = (Client) otherClient;
+        bool idEquality = (this.GetId() == newClient.GetId());
+        bool nameEquality = (this.GetName() == newClient.GetName());
+        bool stylistEquality = (this.GetStylistId() == newClient.GetStylistId());
+        return (idEquality && nameEquality && stylistEquality);
+      }
+    }
+
     public DateTime GetFormattedAppt()
     {
       return _formattedAppt;
