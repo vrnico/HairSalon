@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Feb 23, 2018 at 05:25 PM
+-- Generation Time: Feb 24, 2018 at 09:58 PM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.1.5
 
@@ -25,44 +25,48 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `client`
+-- Table structure for table `clients`
 --
 
-CREATE TABLE `client` (
-  `id` int(11) NOT NULL,
+CREATE TABLE `clients` (
   `name` varchar(255) DEFAULT NULL,
-  `raw_appt` varchar(255) DEFAULT NULL,
-  `formatted_appt` datetime DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `raw_appt` varchar(19) DEFAULT NULL,
   `stylist_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `stylist`
+-- Table structure for table `stylists`
 --
 
-CREATE TABLE `stylist` (
+CREATE TABLE `stylists` (
   `name` varchar(255) DEFAULT NULL,
-  `raw_date` varchar(255) DEFAULT NULL,
-  `formatted_date` date DEFAULT NULL,
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `stylists`
+--
+
+INSERT INTO `stylists` (`name`, `id`) VALUES
+('Nico', 11);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `client`
+-- Indexes for table `clients`
 --
-ALTER TABLE `client`
+ALTER TABLE `clients`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `stylist`
+-- Indexes for table `stylists`
 --
-ALTER TABLE `stylist`
+ALTER TABLE `stylists`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -70,15 +74,15 @@ ALTER TABLE `stylist`
 --
 
 --
--- AUTO_INCREMENT for table `client`
+-- AUTO_INCREMENT for table `clients`
 --
-ALTER TABLE `client`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `clients`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
--- AUTO_INCREMENT for table `stylist`
+-- AUTO_INCREMENT for table `stylists`
 --
-ALTER TABLE `stylist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
+ALTER TABLE `stylists`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

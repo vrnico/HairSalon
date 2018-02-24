@@ -126,7 +126,7 @@ namespace HairSalon.Models
         int clientId = rdr.GetInt32(1);
         string clientName = rdr.GetString(0);
         string rawAppt = rdr.GetString(2);
-        int clientStylistId = rdr.GetInt32(4);
+        int clientStylistId = rdr.GetInt32(3);
         Client newClient = new Client(clientName, rawAppt, clientId, clientStylistId);
         // newClient.SetAppt();
         allStylistClients.Add(newClient);
@@ -201,6 +201,71 @@ namespace HairSalon.Models
         conn.Dispose();
       }
     }
+
+    // public List<Client> SortAsc()
+    // {
+    //     List<Client> sortList = new List<Client>{};
+    //     MySqlConnection conn = DB.Connection();
+    //     conn.Open();
+    //     MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+    //     cmd.CommandText = @"SELECT * FROM `clients` WHERE `stylist_id` = @thisId ORDER BY -`raw_appt` ASC;";
+    //
+    //     MySqlParameter thisId = new MySqlParameter();
+    //     thisId.ParameterName = "@thisId";
+    //     thisId.Value = this.GetId();
+    //     cmd.Parameters.Add(thisId);
+    //
+    //     MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+    //     while (rdr.Read())
+    //     {
+    //       int clientId = rdr.GetInt32(1);
+    //       string clientName = rdr.GetString(0);
+    //       string clientRawAppt = rdr.GetString(2);
+    //       int stylistId = rdr.GetInt32(4);
+    //
+    //     Client newItem = new Client(clientName, clientRawAppt, clientId, stylistId);
+    //     sortList.Add(newItem);
+    //     }
+    //     conn.Close();
+    //     if (conn != null)
+    //     {
+    //       conn.Dispose();
+    //     }
+    //     return sortList;
+    //
+    // }
+    //
+    // public List<Client> SortDesc()
+    // {
+    //   List<Client> sortList = new List<Client>{};
+    //   MySqlConnection conn = DB.Connection();
+    //   conn.Open();
+    //   MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+    //   cmd.CommandText =  @"SELECT * FROM `clients` WHERE `stylist_id` = @thisId ORDER BY -`raw_appt` DESC;";
+    //
+    //   MySqlParameter thisId = new MySqlParameter();
+    //   thisId.ParameterName = "@thisId";
+    //   thisId.Value = this.GetId();
+    //   cmd.Parameters.Add(thisId);
+    //
+    //   MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+    //   while (rdr.Read())
+    //   {
+    //     int clientId = rdr.GetInt32(1);
+    //     string clientName = rdr.GetString(0);
+    //     string clientRawAppt = rdr.GetString(2);
+    //     int stylistId = rdr.GetInt32(4);
+    //
+    //   Client newItem = new Client(clientName, clientRawAppt, clientId, stylistId);
+    //   sortList.Add(newItem);
+    //   }
+    //   conn.Close();
+    //   if (conn != null)
+    //   {
+    //     conn.Dispose();
+    //   }
+    //   return sortList;
+    // }
 
   }
 }

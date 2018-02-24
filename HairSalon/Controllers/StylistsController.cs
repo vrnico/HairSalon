@@ -61,5 +61,27 @@ namespace HairSalon.Controllers
       return RedirectToAction("Index");
     }
 
+    // [HttpGet("/stylists/{id}/clients/sort-asc")]
+    // public ActionResult SortAsc(int id)
+    // {
+    //   Stylist sortStylist = Stylist.Find(id);
+    //   List<Client> sortClients = new List<Client>{};
+    //   sortClients = sortStylist.SortAsc();
+    //   Dictionary<string, object> model = new Dictionary<string, object>();
+    //   model.Add("clients", sortClients);
+    //   return View("Detail", model);
+    // }
+    //
+    // [HttpGet("/stylists/{id}/clients/sort-desc")]
+    // public ActionResult SortDesc(int id)
+    // {
+    //   Stylist sortStylist = Stylist.Find(id);
+    //   List<Client> sortClients = new List<Client>{};
+    //   sortClients = sortStylist.SortDesc();
+    //   Dictionary<string, object> model = new Dictionary<string, object>();
+    //   model.Add("clients", sortClients);
+    //   return View("Detail", model);
+    // }
+
   }
 }

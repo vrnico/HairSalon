@@ -142,7 +142,7 @@ namespace HairSalon.Models
         int clientId = rdr.GetInt32(1);
         string clientName = rdr.GetString(0);
         string clientRawAppt = rdr.GetString(2);
-        int stylistId = rdr.GetInt32(4);
+        int stylistId = rdr.GetInt32(3);
         Client newClient = new Client(clientName, clientRawAppt, clientId, stylistId);
         // newClient.SetAppt();
         allClients.Add(newClient);
@@ -200,7 +200,7 @@ namespace HairSalon.Models
             clientId = rdr.GetInt32(1);
             clientName = rdr.GetString(0);
             clientRawAppt = rdr.GetString(2);
-            clientStylistId = rdr.GetInt32(4);
+            clientStylistId = rdr.GetInt32(3);
         }
 
         Client foundClient = new Client(clientName, clientRawAppt, clientId, clientStylistId);
