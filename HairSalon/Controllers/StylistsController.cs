@@ -34,6 +34,7 @@ namespace HairSalon.Controllers
       Stylist stylistInput = Stylist.Find(id);
       List<Client> allClients = stylistInput.GetClients();
       model.Add("stylist", stylistInput);
+      model.Add("clients", allClients);
       return View(model);
     }
 

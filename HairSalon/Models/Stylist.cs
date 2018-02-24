@@ -107,7 +107,7 @@ namespace HairSalon.Models
             }
         }
 
-        public List<Client> GetClients()
+      public List<Client> GetClients()
     {
       List<Client> allStylistClients = new List<Client> {};
       MySqlConnection conn = DB.Connection();
@@ -123,12 +123,12 @@ namespace HairSalon.Models
       var rdr = cmd.ExecuteReader() as MySqlDataReader;
       while(rdr.Read())
       {
-        int clientId = rdr.GetInt32(0);
-        string clientName = rdr.GetString(1);
-        string clientRawAppt = rdr.GetString(2);
+        int clientId = rdr.GetInt32(1);
+        string clientName = rdr.GetString(0);
+        string rawAppt = rdr.GetString(2);
         int clientStylistId = rdr.GetInt32(4);
-        Client newClient = new Client(clientName, clientRawAppt, clientId, clientStylistId);
-        newClient.SetAppt();
+        Client newClient = new Client(clientName, rawAppt, clientId, clientStylistId);
+        // newClient.SetAppt();
         allStylistClients.Add(newClient);
       }
       conn.Close();

@@ -13,6 +13,13 @@
     </thead>
     <tbody>
       <!--this is where you're stumped how do you bring client name and appointment date into model?-->
+      @foreach (var client in @Model["clients"])
+      {
+      <tr>
+          <td>@client.GetName()</td>
+          <td>@client.GetRawAppt()</td>
+      </tr>
+      }
 
    </tbody>
 </table>
