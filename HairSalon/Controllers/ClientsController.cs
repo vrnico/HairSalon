@@ -11,8 +11,8 @@ namespace HairSalon.Controllers
     [HttpGet("/stylists/{stylistID}/clients/new")]
     public ActionResult CreateClientForm(int stylistId)
     {
-      Stylist foundstylist = Stylist.Find(stylistId);
-      return View(foundstylist);
+      Stylist foundStylist = Stylist.Find(stylistId);
+      return View(foundStylist);
     }
 
 
@@ -21,23 +21,25 @@ namespace HairSalon.Controllers
     [HttpGet("/clients/{id}")]
     public ActionResult Detail(int id)
     {
-      Client item = Client.Find(id);
-      return View(item);
+      Client client = Client.Find(id);
+      return View("Detail");
     }
 
     [HttpGet("/clients/{id}/update")]
     public ActionResult UpdateForm(int id)
     {
-      Client thisItem = Client.Find(id);
-      return View(thisItem);
+      Client thisClient = Client.Find(id);
+      return View(thisClient);
     }
 
     [HttpGet("/clients/{id}/delete")]
-    public ActionResult DeleteItem(int id)
+    public ActionResult DeleteClient(int id)
     {
-      Client thisItem = Client.Find(id);
-      thisItem.Delete();
-      return RedirectToAction("Detail", "stylists", new {Id = thisItem.GetStylistId()});
+     Client foundClient = Client.Find(id);
+     System.Console.WriteLine(foundClient);
+     int stylistId = foundClient.GetStylistId();
+     foundClient.DeleteClient();
+     return RedirectToAction("Detail", "stylists", new{Id=stylistId});
     }
   }
 }

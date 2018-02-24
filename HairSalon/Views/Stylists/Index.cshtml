@@ -11,6 +11,7 @@
     <thead>
         <tr>
             <th>Name</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -18,7 +19,10 @@
         {
             <tr>
                 <td><a href="/stylists/@stylist.GetId()">@stylist.GetName()</a></td>
-            </tr>
+
+            <td><a href="/stylists/@stylist.GetId()/delete" class="btn btn-danger">x</a></td>
+          </tr>
+
         }
     </tbody>
 </table>

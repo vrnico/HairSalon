@@ -13,10 +13,10 @@ namespace HairSalon.Models
     private int _stylistId;
 
 
-    public Client(string name, string rawAppt, int clientId = 0, int stylistId = 0)
+    public Client(string name, string rawAppt, int id = 0, int stylistId = 0)
     {
       _name = name;
-      _id = clientId;
+      _id = id;
       _rawAppt = rawAppt;
       // _formattedAppt = new DateTime();
       _stylistId = stylistId;
@@ -68,72 +68,6 @@ namespace HairSalon.Models
       }
     }
 
-    public string GetName()
-    {
-      return _name;
-    }
-
-    public int GetId()
-    {
-      return _id;
-    }
-
-    public int GetStylistId()
-    {
-      return _stylistId;
-    }
-
-    public void SetStylistId(int id)
-    {
-      _stylistId = id;
-    }
-
-
-
-    public static List<Client> GetAll()
-    {
-      List<Client> allClients = new List<Client> {};
-      MySqlConnection conn = DB.Connection();
-      conn.Open();
-      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT * FROM clients;";
-      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
-      while(rdr.Read())
-      {
-        int clientId = rdr.GetInt32(0);
-        string clientName = rdr.GetString(1);
-        string clientRawAppt = rdr.GetString(2);
-        int stylistId = rdr.GetInt32(4);
-        Client newClient = new Client(clientName, clientRawAppt, clientId, stylistId);
-        // newClient.SetAppt();
-        allClients.Add(newClient);
-      }
-      conn.Close();
-      if (conn != null)
-      {
-        conn.Dispose();
-      }
-      return allClients;
-    }
-
-
-
-    public override bool Equals(System.Object otherClient)
-    {
-      if (!(otherClient is Client))
-      {
-        return false;
-      }
-      else
-      {
-        Client newClient = (Client) otherClient;
-        bool idEquality = (this.GetId() == newClient.GetId());
-        bool nameEquality = (this.GetName() == newClient.GetName());
-        bool stylistEquality = (this.GetStylistId() == newClient.GetStylistId());
-        return (idEquality && nameEquality && stylistEquality);
-      }
-    }
-
     public void Save()
     {
       MySqlConnection conn = DB.Connection();
@@ -172,44 +106,112 @@ namespace HairSalon.Models
             }
         }
 
-
-    public static Client Find(int id)
+    public string GetName()
     {
-      MySqlConnection conn = DB.Connection();
-      conn.Open();
-
-      var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT * FROM `clients` WHERE id = @thisId;";
-
-      MySqlParameter thisId = new MySqlParameter();
-      thisId.ParameterName = "@thisId";
-      thisId.Value = id;
-      cmd.Parameters.Add(thisId);
-
-      var rdr = cmd.ExecuteReader() as MySqlDataReader;
-      int clientId = 0;
-      string clientName = "";
-      string clientRawAppt = "";
-      int stylistId = 0;
-
-      while (rdr.Read())
-      {
-      clientId = rdr.GetInt32(0);
-      clientName = rdr.GetString(1);
-      clientRawAppt = rdr.GetString(2);
-      stylistId = rdr.GetInt32(4);
+      return _name;
     }
 
-      Client foundClient = new Client(clientName, clientRawAppt, clientId, stylistId);
-      // foundClient.SetAppt();
+    public int GetId()
+    {
+      return _id;
+    }
 
+    public int GetStylistId()
+    {
+      return _stylistId;
+    }
+
+    public void SetStylistId(int id)
+    {
+      _stylistId = id;
+    }
+
+
+
+    public static List<Client> GetAll()
+    {
+      List<Client> allClients = new List<Client> {};
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM clients;";
+
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+      while(rdr.Read())
+      {
+        int clientId = rdr.GetInt32(1);
+        string clientName = rdr.GetString(0);
+        string clientRawAppt = rdr.GetString(2);
+        int stylistId = rdr.GetInt32(4);
+        Client newClient = new Client(clientName, clientRawAppt, clientId, stylistId);
+        // newClient.SetAppt();
+        allClients.Add(newClient);
+      }
       conn.Close();
       if (conn != null)
       {
         conn.Dispose();
       }
+      return allClients;
+    }
 
-      return foundClient;
+
+
+    public override bool Equals(System.Object otherClient)
+    {
+      if (!(otherClient is Client))
+      {
+        return false;
+      }
+      else
+      {
+        Client newClient = (Client) otherClient;
+        bool idEquality = (this.GetId() == newClient.GetId());
+        bool nameEquality = (this.GetName() == newClient.GetName());
+        bool stylistEquality = (this.GetStylistId() == newClient.GetStylistId());
+        return (idEquality && nameEquality && stylistEquality);
+      }
+    }
+
+
+
+    public static Client Find(int id)
+    {
+        List<Client> allClients = Client.GetAll();
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"SELECT * from `clients` WHERE id = @thisId;";
+
+        MySqlParameter thisId = new MySqlParameter();
+        thisId.ParameterName = "@thisId";
+        thisId.Value = id;
+        cmd.Parameters.Add(thisId);
+
+        var rdr = cmd.ExecuteReader() as MySqlDataReader;
+        int clientId = 0;
+        string clientName = "";
+        string clientRawAppt = "";
+        int clientStylistId = 0;
+
+        while (rdr.Read())
+        {
+            clientId = rdr.GetInt32(1);
+            clientName = rdr.GetString(0);
+            clientRawAppt = rdr.GetString(2);
+            clientStylistId = rdr.GetInt32(4);
+        }
+
+        Client foundClient = new Client(clientName, clientRawAppt, clientId, clientStylistId);
+
+        conn.Close();
+        if (conn != null)
+        {
+        conn.Dispose();
+        }
+
+        return foundClient;
     }
 
     public void Edit(string newName, string newAppt)
@@ -246,7 +248,7 @@ namespace HairSalon.Models
 
 
 
-    public void Delete()
+    public void DeleteClient()
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
