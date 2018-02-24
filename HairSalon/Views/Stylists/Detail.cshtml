@@ -1,3 +1,19 @@
 @{
   Layout = "_Layout";
 }
+<h1>@Model["stylist"].GetName()'s Appointments</h1>
+
+<a href="/stylists/@Model["stylist"].GetId()/clients/new" class="btn btn-warning btn-lg">Add new client</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Appointment Date</th>
+        </tr>
+    </thead>
+    <tbody>
+      <!--this is where you're stumped how do you bring client name and appointment date into model?-->
+
+   </tbody>
+</table>
+<a href="/" class="btn btn-danger btn-lg" role="button">Return Home</a>

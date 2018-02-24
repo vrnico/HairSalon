@@ -8,15 +8,12 @@ namespace HairSalon.Models
   {
     private string _name;
     private int _id;
-    private string _rawDate;
-    private DateTime _formattedDate;
 
-    public Stylist(string name, string rawDate, int Id = 0)
+    public Stylist(string name, int Id = 0)
     {
       _name = name;
       _id = Id;
-      _rawDate = rawDate;
-      _formattedDate = new DateTime();
+
     }
 
 
@@ -61,9 +58,7 @@ namespace HairSalon.Models
       {
         int stylistId = rdr.GetInt32(1);
         string stylistName = rdr.GetString(0);
-        string stylistRawDate = rdr.GetString(2);
-        Stylist newStylist = new Stylist(stylistName, stylistRawDate, stylistId);
-        newStylist.SetDate();
+        Stylist newStylist = new Stylist(stylistName, stylistId);
         allStylists.Add(newStylist);
       }
       conn.Close();
@@ -92,24 +87,14 @@ namespace HairSalon.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO `stylists` (`name`, `raw_date`, `formatted_date`) VALUES (@Name, @RawDate, @FormattedDate);";
+      cmd.CommandText = @"INSERT INTO `stylists` (`name`) VALUES (@Name);";
 
             MySqlParameter name = new MySqlParameter();
             name.ParameterName = "@name";
             name.Value = this._name;
 
-            MySqlParameter rawDate = new MySqlParameter();
-            rawDate.ParameterName = "@RawDate";
-            rawDate.Value = this._rawDate;
-
-            MySqlParameter formattedDate = new MySqlParameter();
-            formattedDate.ParameterName = "@FormattedDate";
-            formattedDate.Value = this._formattedDate;
-
-
             cmd.Parameters.Add(name);
-            cmd.Parameters.Add(rawDate);
-            cmd.Parameters.Add(formattedDate);
+
 
 
             cmd.ExecuteNonQuery();
@@ -140,9 +125,9 @@ namespace HairSalon.Models
       {
         int clientId = rdr.GetInt32(0);
         string clientName = rdr.GetString(1);
-        string clientRawDate = rdr.GetString(2);
+        string clientRawAppt = rdr.GetString(2);
         int clientStylistId = rdr.GetInt32(4);
-        Client newClient = new Client(clientName, clientRawDate, clientId, clientStylistId);
+        Client newClient = new Client(clientName, clientRawAppt, clientId, clientStylistId);
         newClient.SetAppt();
         allStylistClients.Add(newClient);
       }
@@ -155,26 +140,6 @@ namespace HairSalon.Models
       return allStylistClients;
     }
 
-    public DateTime GetFormattedDate()
-    {
-      return _formattedDate;
-    }
-
-    public string GetRawDate()
-    {
-      return _rawDate;
-    }
-
-    public void SetDate()
-    {
-      string[] dateArray = _rawDate.Split('-');
-      List<int> intDateList = new List<int>{};
-      foreach (string num in dateArray)
-      {
-        intDateList.Add(Int32.Parse(num));
-      }
-      _formattedDate = new DateTime(intDateList[0], intDateList[1], intDateList[2]);
-    }
 
     public static Stylist Find(int id)
     {
@@ -193,17 +158,15 @@ namespace HairSalon.Models
         var rdr = cmd.ExecuteReader() as MySqlDataReader;
         int stylistId = 0;
         string stylistName = "";
-        string stylistRawDate = "";
 
         while (rdr.Read())
         {
             stylistId = rdr.GetInt32(1);
             stylistName = rdr.GetString(0);
-            stylistRawDate = rdr.GetString(2);
 
         }
 
-        Stylist foundStylist = new Stylist(stylistName, stylistRawDate, stylistId);
+        Stylist foundStylist = new Stylist(stylistName, stylistId);
 
         conn.Close();
         if (conn != null)
