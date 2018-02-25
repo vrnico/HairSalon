@@ -42,11 +42,8 @@ ___
 ## Setup/Installation Requirements
 
 *  _Setup assumes prior installation of the .NET Framework and MAMP_
-
   *  .NET Core 1.1 SDK (Software Development Kit)
-
   *  .NET runtime.
-
   *  MAMP, LAMP, or XAMP
 
 
@@ -55,7 +52,10 @@ ___
 
 *    _Create Database_
 
-In your command line start MySql and enter the snippet below, or build an identical table in myPhpAdmin.  
+In your command line start MySql and enter the snippet below, or build an identical database in myPhpAdmin.
+
+* setup assumes mySql is using port 8889, if you are trying to use another port, make sure to change the port number in Models/Database.cs and .csproj files.
+
 ```csharp
 
 CREATE TABLE `clients` (
@@ -76,21 +76,19 @@ CREATE TABLE `stylists` (
 * _Start the MySql Server in MAMP_
 
 * _Run the program_
-  1. In the command line, cd into the project folder.
-  2. In the command line, run dotnet restore.
-  3. In the command line, type dotnet build. Enter. Any error messages will be displayed in red.  Errors will need to be corrected before the app can be run. After correcting errors and saving changes, type dotnet build again.  When message says Build succeeded in green, proceed to the next step.
-  4. In the command line, type dotnet run. Enter.
+1. In the command line, cd into the project folder /HairSalon/HairSalon.
+2. In the command line, run dotnet restore.
+  * Repeat step for HairSalon/HairSalon.test in order to set up testing environment if necessary.
+3. In the command line, type dotnet build. Any error messages will be displayed in red.  Errors will need to be corrected before the app can be run. After correcting errors and saving changes, type dotnet build again.  When build succeeds, proceed to the next step.
+4. In the command line, type dotnet run. Enter.
 
 * _View program on web browser at port localhost:5000/_
 
+* Go nuts adding stylists, clients, and appointment dates!
 
-```csharp
+![gif showing UI](https://gyazo.com/c771e50b7f46bf6fa950d098b7428a82)
 
-CREATE TABLE `nico_daunt`.`stylist` ( `name` VARCHAR(255) NULL DEFAULT NULL , `raw_date` VARCHAR(255) NULL DEFAULT NULL , `formatted_date` DATE NULL DEFAULT NULL , `id` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`id`)) ENGINE = InnoDB;`
 
-CREATE TABLE `nico_daunt`.`client` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR NULL DEFAULT NULL , `raw_appt` VARCHAR(255) NULL DEFAULT NULL , `formatted_appt` DATETIME NULL DEFAULT NULL , `stylist_id` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
-
-```
 
 ## Technologies Used
 

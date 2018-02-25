@@ -21,8 +21,12 @@ namespace HairSalon.Controllers
     [HttpGet("/clients/{id}")]
     public ActionResult Detail(int id)
     {
-      Client client = Client.Find(id);
-      return View("Detail");
+      Client foundClient = Client.Find(id);
+      Stylist foundStylist = Stylist.Find(foundClient.GetStylistId());
+      Dictionary<string, object> clientDetail = new Dictionary <string, object>();
+      clientDetail.Add("client", foundClient);
+      clientDetail.Add("stylist", foundStylist);
+      return View(clientDetail);
     }
 
     [HttpGet("/clients/{id}/update")]

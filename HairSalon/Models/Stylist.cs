@@ -89,23 +89,20 @@ namespace HairSalon.Models
       var cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"INSERT INTO `stylists` (`name`) VALUES (@Name);";
 
-            MySqlParameter name = new MySqlParameter();
-            name.ParameterName = "@name";
-            name.Value = this._name;
+      MySqlParameter name = new MySqlParameter();
+      name.ParameterName = "@name";
+      name.Value = this._name;
 
-            cmd.Parameters.Add(name);
+      cmd.Parameters.Add(name);
+      cmd.ExecuteNonQuery();
+      _id = (int) cmd.LastInsertedId;
 
-
-
-            cmd.ExecuteNonQuery();
-            _id = (int) cmd.LastInsertedId;
-
-            conn.Close();
-            if (conn != null)
-            {
-                conn.Dispose();
-            }
-        }
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
 
       public List<Client> GetClients()
     {
@@ -201,71 +198,5 @@ namespace HairSalon.Models
         conn.Dispose();
       }
     }
-
-    // public List<Client> SortAsc()
-    // {
-    //     List<Client> sortList = new List<Client>{};
-    //     MySqlConnection conn = DB.Connection();
-    //     conn.Open();
-    //     MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-    //     cmd.CommandText = @"SELECT * FROM `clients` WHERE `stylist_id` = @thisId ORDER BY -`raw_appt` ASC;";
-    //
-    //     MySqlParameter thisId = new MySqlParameter();
-    //     thisId.ParameterName = "@thisId";
-    //     thisId.Value = this.GetId();
-    //     cmd.Parameters.Add(thisId);
-    //
-    //     MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
-    //     while (rdr.Read())
-    //     {
-    //       int clientId = rdr.GetInt32(1);
-    //       string clientName = rdr.GetString(0);
-    //       string clientRawAppt = rdr.GetString(2);
-    //       int stylistId = rdr.GetInt32(4);
-    //
-    //     Client newItem = new Client(clientName, clientRawAppt, clientId, stylistId);
-    //     sortList.Add(newItem);
-    //     }
-    //     conn.Close();
-    //     if (conn != null)
-    //     {
-    //       conn.Dispose();
-    //     }
-    //     return sortList;
-    //
-    // }
-    //
-    // public List<Client> SortDesc()
-    // {
-    //   List<Client> sortList = new List<Client>{};
-    //   MySqlConnection conn = DB.Connection();
-    //   conn.Open();
-    //   MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-    //   cmd.CommandText =  @"SELECT * FROM `clients` WHERE `stylist_id` = @thisId ORDER BY -`raw_appt` DESC;";
-    //
-    //   MySqlParameter thisId = new MySqlParameter();
-    //   thisId.ParameterName = "@thisId";
-    //   thisId.Value = this.GetId();
-    //   cmd.Parameters.Add(thisId);
-    //
-    //   MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
-    //   while (rdr.Read())
-    //   {
-    //     int clientId = rdr.GetInt32(1);
-    //     string clientName = rdr.GetString(0);
-    //     string clientRawAppt = rdr.GetString(2);
-    //     int stylistId = rdr.GetInt32(4);
-    //
-    //   Client newItem = new Client(clientName, clientRawAppt, clientId, stylistId);
-    //   sortList.Add(newItem);
-    //   }
-    //   conn.Close();
-    //   if (conn != null)
-    //   {
-    //     conn.Dispose();
-    //   }
-    //   return sortList;
-    // }
-
   }
 }

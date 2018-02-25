@@ -1,3 +1,19 @@
 .container {
   margin-top: 2em;
+  font-family: 'Nunito', sans-serif;
+}
+
+.img-fluid {
+   display:inline-block;
+   border-radius: 3em;
+   text-align: center;
+}
+
+.img-fluid img {
+width: 100%;
+height:auto;
+}
+
+body {
+    background: linear-gradient(to left, #f6cf8a, #fffde4);
 }

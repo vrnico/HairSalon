@@ -2,4 +2,6 @@
   Layout = "_Layout";
 }
 
-<h1>yo</h1>
+<h2>@Model["client"].GetName()'s next appointment is <font color="#d9534f">@Model["client"].GetRawAppt()</font></h2>
+
+<a href="/stylists/@Model["stylist"].GetId()" class="btn btn-danger btn-lg" role="button">Return to @Model["stylist"].GetName()'s Appointments</a>

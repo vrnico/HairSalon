@@ -16,7 +16,7 @@ namespace HairSalon.Controllers
     [HttpGet("/stylists/new")]
     public ActionResult CreateStylistForm()
     {
-        return View();
+      return View();
     }
 
     [HttpPost("/stylists")]
@@ -41,16 +41,16 @@ namespace HairSalon.Controllers
     [HttpPost("/stylists/{id}/clients")]
     public ActionResult CreateClient(int id)
     {
-        Dictionary<string, object> model = new Dictionary<string, object>();
-        Stylist foundStylist = Stylist.Find(id);
-        List<Client> stylistClients = foundStylist.GetClients();
-        Client newClient = new Client(Request.Form["new-name"], Request.Form["raw-appt"]);
-        newClient.SetStylistId(foundStylist.GetId());
-        stylistClients.Add(newClient);
-        newClient.Save();
-        model.Add("clients", stylistClients);
-        model.Add("stylist", foundStylist);
-        return View("Detail", model);
+      Dictionary<string, object> model = new Dictionary<string, object>();
+      Stylist foundStylist = Stylist.Find(id);
+      List<Client> stylistClients = foundStylist.GetClients();
+      Client newClient = new Client(Request.Form["new-name"], Request.Form["raw-appt"]);
+      newClient.SetStylistId(foundStylist.GetId());
+      stylistClients.Add(newClient);
+      newClient.Save();
+      model.Add("clients", stylistClients);
+      model.Add("stylist", foundStylist);
+      return View("Detail", model);
     }
 
     [HttpGet("/stylists/{id}/delete")]
@@ -61,27 +61,6 @@ namespace HairSalon.Controllers
       return RedirectToAction("Index");
     }
 
-    // [HttpGet("/stylists/{id}/clients/sort-asc")]
-    // public ActionResult SortAsc(int id)
-    // {
-    //   Stylist sortStylist = Stylist.Find(id);
-    //   List<Client> sortClients = new List<Client>{};
-    //   sortClients = sortStylist.SortAsc();
-    //   Dictionary<string, object> model = new Dictionary<string, object>();
-    //   model.Add("clients", sortClients);
-    //   return View("Detail", model);
-    // }
-    //
-    // [HttpGet("/stylists/{id}/clients/sort-desc")]
-    // public ActionResult SortDesc(int id)
-    // {
-    //   Stylist sortStylist = Stylist.Find(id);
-    //   List<Client> sortClients = new List<Client>{};
-    //   sortClients = sortStylist.SortDesc();
-    //   Dictionary<string, object> model = new Dictionary<string, object>();
-    //   model.Add("clients", sortClients);
-    //   return View("Detail", model);
-    // }
 
   }
 }
