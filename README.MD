@@ -86,7 +86,7 @@ CREATE TABLE `stylists` (
 
 * Go nuts adding stylists, clients, and appointment dates!
 
-![gif showing UI](https://gyazo.com/c771e50b7f46bf6fa950d098b7428a82)
+![gif showing UI](https://gyazo.com/c771e50b7f46bf6fa950d098b7428a82"><img src="https://i.gyazo.com/c771e50b7f46bf6fa950d098b7428a82.gif)
 
 
 
