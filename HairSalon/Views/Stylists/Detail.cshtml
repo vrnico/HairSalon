@@ -4,15 +4,16 @@
 <h1>@Model["stylist"].GetName()'s Appointments</h1>
 
 <a href="/stylists/@Model["stylist"].GetId()/clients/new" class="btn btn-warning btn-lg">Add new client</a>
+<br>
+<br>
 <table class="table table-striped">
     <thead>
         <tr>
             <th>Name</th>
-            <!-- <th>Appointment Date<a href='/stylists/@Model["stylist"].GetId()/clients/sort-desc'>🔺</a> <a href='/stylists/@Model["stylist"].GetId()/clients/sort-asc'>🔻</a></th> -->
+            <th>Appointment Date</th>
         </tr>
     </thead>
     <tbody>
-      <!--this is where you're stumped how do you bring client name and appointment date into model?-->
       @foreach (var client in @Model["clients"])
       {
       <tr>
