@@ -148,6 +148,12 @@ namespace HairSalon.Models
       }
     }
 
+    public override int GetHashCode()
+   {
+     return this.GetId().GetHashCode();
+   }
+
+
 
 
     public static Client Find(int id)

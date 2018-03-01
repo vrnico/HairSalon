@@ -34,5 +34,18 @@ namespace HairSalon.Tests
        Assert.IsInstanceOfType(test, typeof(ViewResult));
       }
 
+      [TestMethod]
+      public void Detail_ReturnView_True()
+      {
+          StylistsController controller = new StylistsController();
+
+
+          IActionResult stylistDetailView = controller.Detail(1);
+          ViewResult result = stylistDetailView as ViewResult;
+
+
+          Assert.IsInstanceOfType(result, typeof(ViewResult));
+      }
+
     }
 }

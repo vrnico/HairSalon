@@ -20,52 +20,47 @@ namespace HairSalon.Tests
     }
 
     [TestMethod]
-    public void GetSytlist_TakesInput_ReturnsInput()
+    public void Equals_ReturnsTrueIfNamesAreTheSame_Recipe()
     {
-      Stylist newStylist = new Stylist("Lynda", "1/1/0001 12:00:00 AM", 1);
-      string testName = "Lynda";
-      string testDate = "1/1/0001 12:00:00 AM";
-      int testId = 1;
+      // Arrange
+      Stylist firstStylist = new Stylist("Lynda");
+      Stylist secondStylist = new Stylist("Lynda");
 
+      //Act
+      firstStylist.Save();
+      secondStylist.Save();
 
-      string inputName = newStylist.GetName();
-      string inputDate = newStylist.GetRawDate();
-      int nullId = newStylist.GetId();
+    // Assert
+    Assert.AreEqual(true, firstStylist.GetName().Equals(secondStylist.GetName()));
+  }
 
-      Assert.AreEqual(testName, inputName);
-      Assert.AreEqual(testDate, inputDate);
-      Assert.AreEqual(testId, nullId);
+    [TestMethod]
+    public void Find_FindsStylistInDatabase_Stylist()
+    {
+      //Arrange
+      Stylist testStylist = new Stylist("Lynda");;
+      testStylist.Save();
+
+      //Act
+      Stylist foundStylist = Stylist.Find(testStylist.GetId());
+
+      //Assert
+      Assert.AreEqual(testStylist.GetId(), foundStylist.GetId());
     }
 
     [TestMethod]
-      public void GetDate_AssignDate_SetDate()
-      {
-        Stylist testStylist = new Stylist("Lynda", "1992-02-25");
-        DateTime testDate = new DateTime(1992, 02, 25);
+    public void Delete_DeleteAllStylistsInDatabase_void()
+    {
+      //arrange
+       Stylist newStylist = new Stylist("Lynda");
 
-        testStylist.SetDate();
-        DateTime inputDate = testStylist.GetFormattedDate();
+       //act
+       Stylist.DeleteAll();
+       int result = Stylist.GetAllStylists().Count;
 
-        Assert.AreEqual(inputDate, testDate);
-      }
+       //assert
+       Assert.AreEqual(0, result);
+    }
 
-    [TestMethod]
-      public void AssignStylist_SavesStylisttoStylist_ReturnsStylistInfo()
-      {
-        Stylist newStylist = new Stylist("Lynda", "1992-02-25");
-         newStylist.Save();
-         Client newClient = new Client("Bob", "1992-02-25");
-         newClient.SetStylistId(newStylist.GetId());
-         newClient.Save();
-         Client testClient = new Client("Louise", "1992-02-25");;
-         testClient.SetStylistId(newStylist.GetId());
-         testClient.Save();
-         List<Client> testList = new List<Client>{newClient, testClient};
-
-         List<Client> result = newStylist.GetClients();
-
-         CollectionAssert.AreEqual(result, testList);
-
-      }
   }
 }

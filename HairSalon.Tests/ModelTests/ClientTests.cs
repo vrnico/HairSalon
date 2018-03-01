@@ -19,49 +19,46 @@ namespace HairSalon.Tests
       DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=nico_daunt_test";
     }
     [TestMethod]
-        public void GetClient_TakesInput_ReturnsInput()
-        {
-          Client newClient = new Client("Bob", "1/1/0001 12:00:00 AM", 1, 1);
-          string testName = "Bob";
-          string testAppt = "1/1/0001 12:00:00 AM";
-          int testId = 1;
-          int testStylistId = 1;
+    public void Equals_ReturnsTrueIfNamesAreTheSame_Recipe()
+  {
+    // Arrange
+    Client firstClient = new Client("Bob", "1991-06-05");
+    Client secondClient = new Client("Bob", "1991-06-05");
 
-          string inputName = newClient.GetName();
-          string inputAppt = newClient.GetRawAppt();
-          int nullId = newClient.GetId();
-          int nullStylistId = newClient.GetStylistId();
+    //Act
+    firstClient.Save();
+    secondClient.Save();
 
-          Assert.AreEqual(testName, inputName);
-          Assert.AreEqual(testAppt, inputAppt);
-          Assert.AreEqual(testId, nullId);
-          Assert.AreEqual(testStylistId, nullStylistId);
-        }
+    // Assert
+    Assert.AreEqual(true, firstClient.GetName().Equals(secondClient.GetName()));
+  }
 
+  [TestMethod]
+  public void Find_FindsClientInDatabase_Client()
+  {
+    //Arrange
+    Client testClient = new Client("Bob", "1991-06-05");
+    testClient.Save();
+
+    //Act
+    Client foundClient = Client.Find(testClient.GetId());
+
+    //Assert
+    Assert.AreEqual(testClient, foundClient);
+  }
     [TestMethod]
-      public void GetAppt_AssignAppt_SetAppt()
-      {
-        Client testClient = new Client("Bob", "1991-06-05");
-        DateTime testAppt = new DateTime(1991, 06, 05);
+    public void Delete_DeleteAllClientsInDatabase_void()
+    {
+      //arrange
+       Client newClient = new Client("Bob", "1991-06-05");
 
-        testClient.SetAppt();
-        DateTime inputAppt = testClient.GetFormattedAppt();
+       //act
+       Client.DeleteAll();
+       int result = Client.GetAll().Count;
 
-        Assert.AreEqual(inputAppt, testAppt);
-      }
-
-      [TestMethod]
-        public void AssignClient_SavesClienttoStylist_ReturnsClientInfo()
-        {
-          Client testClient = new Client("Bob", "1991-06-05");
-          testClient.Save();
-
-          List<Client> input = Client.GetAll();
-
-          List<Client> testList = new List<Client>{testClient};
-
-          CollectionAssert.AreEqual(testList, input);
-        }
+       //assert
+       Assert.AreEqual(0, result);
+    }
 
   }
 }
